@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {AiOutlineEye, AiOutlineEyeInvisible} from "react-icons/ai"
 import styles from "../../styles/styles.js"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {RxAvatar} from "react-icons/rx"
 import axios from "axios"
 import {server} from "../../server.js"
@@ -12,7 +12,7 @@ const Signup = () => {
   const [visible, setVisible] = useState(false)
   const [name, setName] = useState("")
   const [avatar, setAvatar] = useState(null)
-  const navigate = useNavigate();
+  
   
   
 
@@ -31,8 +31,14 @@ const Signup = () => {
     newForm.append("email", email);
     newForm.append("password", password)
   
-      axios.post(`${server}/user/create-user`, newForm, config);
-    
+      axios
+      .post(`${server}/user/create-user`, newForm, config)
+      .then((res) => {
+        alert(res.message)
+      })
+      .catch((error) => {
+        console.log(error);
+      })
   }
 
   return (
